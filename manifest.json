@@ -1,0 +1,23 @@
+{
+    "manifest_version":2,
+    "name":"fb extension",
+    "version":"1.0",
+    "description":"fb extension",
+    "icons":{
+        "16":"images/icon16.png",
+        "48":"images/icon128.png",
+        "128":"images/icon128.png"
+    },
+    "browser_action":{
+        "default_icon":"images/icon16.png",
+        "default_popup":"popup/popup.html"
+    },
+
+    "content_scripts": [
+        {
+          "matches": ["*://*.facebook.com/*"],
+          "js": ["popup/js/jquery.js", "popup/js/content.js"]
+        }
+      ]
+
+}
