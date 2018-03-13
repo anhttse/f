@@ -9,3 +9,8 @@ chrome.tabs.query({active:true,currentWindow:true},function(tabs){
         $("#total_count").html(res.total);
     });
 });
+
+$('#token').on('change',function(e){
+    // e.prevenDefault();
+    $("#total_count").html("up");
+})
