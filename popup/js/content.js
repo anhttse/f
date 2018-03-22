@@ -10,10 +10,13 @@ chrome.runtime.onMessage.addListener(function (req, sender, res) {
     if (req.btn == "generate") {
         var ids = req.ids.split('|');
         ids.pop();
-        var skip = req.skip.split('|');
-        var target = ids.filter(e => !skip.includes(e));
+        var skip = getSkip();
+        var skips = skip.split('|');
+        // skips.pop();
+        console.log("skip: " + skips.length);
+        var target = ids.filter(e => !skips.includes(e));
         console.log("ids: " + ids.length);
-        console.log("skip: " + skip.length);
+        console.log("skip: " + skips.length);
         console.log("target: " + target.length);
         var tags = '';
         for (var id of target) {
@@ -66,4 +69,21 @@ function remove(a) {
 function pause(milliseconds) {
     var dt = new Date();
     while ((new Date()) - dt <= milliseconds) { /* Do nothing */ }
+}
+
+function getSkip(){
+    var skip = "";
+    var a = document.querySelectorAll('div[data-testid="friend_list_item"]');
+    a.forEach(function(item,index){
+	var str = item.firstChild.dataset.hovercard;
+    if(str!= undefined){
+    	var start = str.indexOf("id=")+3;
+		var end = str.indexOf("&")
+        var id = str.substring(start,end);
+        skip+=id+'|';
+        
+    } 
+	
+});
+return skip;
 }
